@@ -1,0 +1,10 @@
+node_modules/
+dist/
+playwright-report/
+test-results/
+.uncle/launch.json.bak
+.uncle/*
+!.uncle/docs/
+!.uncle/attestation.json
+!.uncle/attestation.sig
+!.uncle/allowed_signers
