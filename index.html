@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QuickNotes</title>
+<style>
+body{margin:0;background:#1e1f29;color:#e8e8f0;font-family:system-ui,sans-serif;display:flex;justify-content:center;padding:24px 12px}
+#app{width:100%;max-width:480px;background:#2a2b38;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.4);padding:24px}
+h1{margin:0 0 16px;font-size:1.4rem}
+#noteInput{width:100%;box-sizing:border-box;background:#1e1f29;color:#e8e8f0;border:1px solid #444559;border-radius:8px;padding:10px 12px;font-size:1rem;resize:vertical;min-height:60px}
+#noteInput:focus{outline:2px solid #7c5cff;border-color:#7c5cff}
+#addBtn{margin-top:12px;background:#7c5cff;color:#fff;border:none;border-radius:8px;padding:10px 16px;font-size:1rem;cursor:pointer}
+#addBtn:hover{background:#6a4ae0}
+#addBtn:focus{outline:2px solid #7c5cff}
+#noteList{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.note-item{display:flex;justify-content:space-between;align-items:center;background:#1e1f29;border-radius:8px;padding:10px 12px;gap:8px}
+.note-item span{word-break:break-word;flex:1}
+.del-btn{background:transparent;color:#9a9ab0;border:1px solid #444559;border-radius:6px;padding:6px 10px;cursor:pointer;flex-shrink:0}
+.del-btn:hover{color:#e8e8f0;border-color:#7c5cff}
+.del-btn:focus{outline:2px solid #7c5cff}
+#emptyMsg{color:#9a9ab0;text-align:center;margin:16px 0 0}
+@media (max-width:400px){#app{padding:16px}}
+</style>
+</head>
+<body>
+<div id="app">
+  <h1>QuickNotes</h1>
+  <textarea id="noteInput" placeholder="Write a note..."></textarea>
+  <button id="addBtn">Add Note</button>
+  <p id="emptyMsg">No notes yet.</p>
+  <ul id="noteList"></ul>
+</div>
+<script>
+let notes = JSON.parse(localStorage.getItem('notes') || '[]');
+const list = document.getElementById('noteList');
+const input = document.getElementById('noteInput');
+const empty = document.getElementById('emptyMsg');
+const addBtn = document.getElementById('addBtn');
+
+function save(){ localStorage.setItem('notes', JSON.stringify(notes)); }
+
+function render(){
+  list.innerHTML = '';
+  empty.style.display = notes.length ? 'none' : 'block';
+  notes.forEach((n, i) => {
+    const li = document.createElement('li');
+    li.className = 'note-item';
+    const span = document.createElement('span');
+    span.textContent = n;
+    const del = document.createElement('button');
+    del.className = 'del-btn';
+    del.textContent = 'Delete';
+    del.onclick = () => { notes.splice(i, 1); save(); render(); };
+    li.appendChild(span);
+    li.appendChild(del);
+    list.appendChild(li);
+  });
+}
+
+function addNote(){
+  const v = input.value.trim();
+  if (!v) return;
+  notes.push(v);
+  save();
+  render();
+  input.value = '';
+  input.focus();
+}
+
+addBtn.onclick = addNote;
+input.addEventListener('keydown', e => { if (e.key === 'Enter') addNote(); });
+
+render();
+</script>
+</body>
+</html>
