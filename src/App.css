@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --groovy-orange: #d9631e;
+  --groovy-brown: #5a3825;
+  --groovy-mustard: #e3b23c;
+  --groovy-avocado: #7a8450;
+  --groovy-cream: #f3e3c3;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Space Mono', monospace;
+  background-color: var(--groovy-mustard);
+  background-image:
+    radial-gradient(circle at 15% 20%, var(--groovy-orange) 0, var(--groovy-orange) 60px, transparent 61px),
+    radial-gradient(circle at 85% 15%, var(--groovy-avocado) 0, var(--groovy-avocado) 90px, transparent 91px),
+    radial-gradient(circle at 70% 80%, var(--groovy-brown) 0, var(--groovy-brown) 70px, transparent 71px),
+    radial-gradient(circle at 25% 75%, var(--groovy-cream) 0, var(--groovy-cream) 50px, transparent 51px),
+    repeating-linear-gradient(45deg, var(--groovy-mustard) 0px, var(--groovy-mustard) 40px, var(--groovy-orange) 40px, var(--groovy-orange) 80px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 160px 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.calculator-app {
+  background: var(--groovy-brown);
+  border: 6px solid var(--groovy-mustard);
+  border-radius: 20px;
+  padding: 20px;
+  width: 100%;
+  max-width: 360px;
+  box-shadow: 0 0 0 6px var(--groovy-orange), 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.calculator-display {
+  font-family: 'Righteous', cursive;
+  background: var(--groovy-cream);
+  color: var(--groovy-brown);
+  font-size: 2.4rem;
+  text-align: right;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  overflow-x: auto;
+  white-space: nowrap;
+  min-height: 1.4em;
+}
+
+.calculator-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.calculator-button {
+  font-family: 'Space Mono', monospace;
+  font-size: 1.2rem;
+  padding: 16px 0;
+  border: none;
+  border-radius: 10px;
+  background: var(--groovy-mustard);
+  color: var(--groovy-brown);
+  cursor: pointer;
+  transition: transform 0.08s ease;
+}
+
+.calculator-button:hover {
+  transform: scale(1.04);
+}
+
+.calculator-button:active {
+  transform: scale(0.96);
+}
+
+.calculator-button--operator {
+  background: var(--groovy-avocado);
+  color: var(--groovy-cream);
+}
+
+.calculator-button--clear {
+  background: var(--groovy-orange);
+  color: var(--groovy-cream);
+}
+
+.calculator-button--equals {
+  background: var(--groovy-brown);
+  color: var(--groovy-mustard);
+  grid-row: span 1;
+}
+
+.calculator-button--decimal {
+  grid-column: span 1;
+}
+
+@media (max-width: 420px) {
+  .calculator-app {
+    max-width: 100%;
+    border-radius: 12px;
+    padding: 14px;
+  }
+
+  .calculator-display {
+    font-size: 1.8rem;
+    padding: 12px;
+  }
+
+  .calculator-button {
+    font-size: 1rem;
+    padding: 14px 0;
+  }
+}
